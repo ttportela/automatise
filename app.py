@@ -54,7 +54,7 @@ def display_page(pathname):
     elif pathname == '/tutorial':
         return html.Div(id='content-home', children=[html.Iframe(
             src="assets/examples/Automatize_Sample_Code.html", width="100%", height="100vh",
-            style={"height": "100vh", "width": "100%", 'margin': '20px'},
+            style={"height": "100vh", "width": "100%"},
         )])
     else:
         file = PAGES_ROUTE+ pathname+'.md'

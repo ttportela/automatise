@@ -154,9 +154,6 @@ def importer(key=['S'], this=None):
                 mdic.update( {'l2': getattr(module, 'l2')} )
 
             if set(key) & set(['*', 'regularizers', 'NN', 'MLP']):
-#                 module = importlib.import_module('tensorflow.keras')
-#                 mdic.update( {'regularizers': getattr(module, 'regularizers')} )
-#                 module = importlib.import_module('tensorflow.keras.regularizers')
                 mdic.update( {'regularizers': module} )
 
         if set(key) & set(['*', 'callbacks', 'MARC', 'POIS', 'EarlyStopping', 'History']):
@@ -195,13 +192,9 @@ def importer(key=['S'], this=None):
             mdic.update( {'SVC': getattr(module, 'SVC')} )
 
         if set(key) & set(['*', 'classifiers', 'KerasClassifier']):
-#             module = importlib.import_module('keras.wrappers.scikit_learn')
             module = importlib.import_module('tensorflow.keras.wrappers.scikit_learn')
             mdic.update( {'KerasClassifier': getattr(module, 'KerasClassifier')} )
         
-#     if set(key) & set(['*', 'metrics']):
-#         module = importlib.import_module('tensorflow.keras.metrics')
-#         mdic.update( {'metrics': module} )
     if set(key) & set(['*', 'metrics', 'precision_score', 'recall_score', 'f1_score', 'accuracy_score']):
         module = importlib.import_module('sklearn.metrics')
         if set(key) & set(['*', 'metrics', 'precision_score']):
@@ -223,8 +216,6 @@ def importer(key=['S'], this=None):
         if set(key) & set(['*', 'preprocessing', 'PP', 'NN', 'MLP', 'POIS']):
             module = importlib.import_module('sklearn.preprocessing')
             mdic.update( {'preprocessing': module} )
-#             module = importlib.import_module('sklearn')
-#             mdic.update( {'preprocessing': getattr(module, 'preprocessing')} )
         if set(key) & set(['*', 'preprocessing', 'MinMaxScaler']):
             module = importlib.import_module('sklearn.preprocessing')
             mdic.update( {'MinMaxScaler': getattr(module, 'MinMaxScaler')} )
@@ -237,7 +228,6 @@ def importer(key=['S'], this=None):
                 mdic.update( {'train_test_split': getattr(module, 'train_test_split')} )
 
         if set(key) & set(['*', 'preprocessing', 'encoding', 'MARC', 'pad_sequences']):
-#             module = importlib.import_module('keras.preprocessing.sequence')
             module = importlib.import_module('tensorflow.keras.preprocessing.sequence')
             mdic.update( {'pad_sequences': getattr(module, 'pad_sequences')} )
 
@@ -246,7 +236,7 @@ def importer(key=['S'], this=None):
             mdic.update( {'LabelEncoder': getattr(module, 'LabelEncoder'), 'OneHotEncoder': getattr(module, 'OneHotEncoder')} )
 
         if set(key) & set(['*', 'preprocessing', 'encoding', 'bin_geohash', 'geohash']):
-            module = importlib.import_module(automatize_name+'.marc.core.utils')
+            module = importlib.import_module(automatize_name+'.marc.core.utils.geohash')
             if set(key) & set(['*', 'preprocessing', 'encoding', 'bin_geohash']):
                 mdic.update( {'bin_geohash': getattr(module, 'bin_geohash')} )
             if set(key) & set(['*', 'preprocessing', 'geohash']):
@@ -273,11 +263,14 @@ def importer(key=['S'], this=None):
             mdic.update( {'ApproachDT': getattr(module, 'ApproachDT')} )
         if set(key) & set(['*', 'classifiers', 'AMLP', 'ApproachMLP']):
             mdic.update( {'ApproachMLP': getattr(module, 'ApproachMLP')} )  
+
+    
+    if set(key) & set(['*', 'poifreq']):
+        module = importlib.import_module(automatize_name+'.pois.poifreq')
+        mdic.update( {'poifreq': getattr(module, 'poifreq')} )
             
     if set(key) & set(['*', 'report', 'f1', 'classification_report_csv', 'calculateAccTop5']): #, 'classification_report'
         module = importlib.import_module(automatize_name+'.classifiers')
-#         if set(key) & set(['*', 'report', 'classification_report']):
-#             mdic.update( {'classification_report': getattr(module, 'classification_report')} )
         if set(key) & set(['*', 'report', 'classification_report_csv']):
             mdic.update( {'classification_report_csv': getattr(module, 'classification_report_csv')} )
         if set(key) & set(['*', 'report', 'calculateAccTop5']):
@@ -341,22 +334,16 @@ def importer(key=['S'], this=None):
     if set(key) & set(['*', 'io', 'ts_io', 'load_from_tsfile_to_dataframe', 'readDataset']):
         if set(key) & set(['*', 'io', 'readDataset']):
             module = importlib.import_module(automatize_name+'.preprocessing')
-#             if set(key) & set(['*', 'io', 'readDataset']):
             mdic.update( {'readDataset': getattr(module, 'readDataset')} )
     
         if set(key) & set(['*', 'ts_io', 'load_from_tsfile_to_dataframe']):
             module = importlib.import_module(automatize_name+'.io.ts_io')
-#             if set(key) & set(['*', 'ts_io', 'load_from_tsfile_to_dataframe']):
             mdic.update( {'load_from_tsfile_to_dataframe': getattr(module, 'load_from_tsfile_to_dataframe')} )
         
     if this is not None:
         this.update(mdic)
-#         unpack(this, mdic)
         
     return mdic
-    
-# def unpack(this, modules):
-#     this.update(modules)
     
 # ------------------------------------------------------
 def def_random_seed_compat(random_num=1, seed_num=1):

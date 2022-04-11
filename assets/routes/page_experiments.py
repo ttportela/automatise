@@ -35,12 +35,12 @@ from automatize.helper.datasets_inc import list_datasets
     
 all_methods = [
     'hiper+Log', 
-    
     'SM+Log',
-    
+  
     'MM+Log',
     
     'MARC',
+    
     'poi',
     'npoi',
     'wpoi',
@@ -565,19 +565,13 @@ def download(value, basedir, folderpref, isDs, datapath, isTC, TC, TCD, datasets
         'threads':   nt, \
         'gig':       gb, \
         'pyname':    pyname,
-        
-#         'sequences': [1,2,3],
-#         'ensemble_methods': [['MML', 'HL', 'HpL', 'RL', 'U'], ['npoi']],
 
 #         'timeout': '7d', \
     }
     
     if isTC:
         params_base['timeout'] = str(TC) + TCD
-        
-#     if not isDs: 
-#         datapath = os.path.join('${BASE}', 'data')
-        
+                
     shdir = tempfile.TemporaryDirectory()
     os.mkdir(os.path.join(shdir.name, base))
     os.mkdir(os.path.join(shdir.name, base, 'results'))
@@ -605,7 +599,6 @@ def download(value, basedir, folderpref, isDs, datapath, isTC, TC, TCD, datasets
             params.update(GM[1])
             
             params['data_folder'] = os.path.join(datapath, dsType)
-#             params['res_path']    = os.path.join(params['root'], 'results', prefix)
             params['features']    = getFeature(dsType, dsn)
             # A>
             torun += gensh(method, {dsName+'.'+getDescName(dsType, dsName): [dsFeat]}, params)

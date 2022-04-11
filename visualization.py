@@ -207,17 +207,19 @@ def parse_movelets(file, name='movelets', count=0):
     l = len(data[name])
     for x in range(0, l):
         points = data[name][x]['points_with_only_the_used_features']
-        ls_movelets.append(
-            Movelet(\
-                count, data[name][x]['trajectory'],\
-                points,\
-                float(data[name][x]['quality']['quality'] * 100.0),\
-                data[name][x]['label'],\
-                data[name][x]['start'],\
-                int(data[name][x]['quality']['size']))\
-        )
+        if len(points[0]) > 0:
+            ls_movelets.append(
+                Movelet(\
+                    count, data[name][x]['trajectory'],\
+                    points,\
+                    float(data[name][x]['quality']['quality'] * 100.0),\
+                    data[name][x]['label'],\
+                    data[name][x]['start'],\
+                    int(data[name][x]['quality']['size']))\
+            )
 
-        count += 1
+            count += 1
+            
     ls_movelets.sort(key=lambda x: x.quality, reverse=True)
     return ls_movelets
 
@@ -669,8 +671,7 @@ def graph_nx(name, nodes, edges, groups, no_colors, ed_colors, draw=True):
         paux = max(edges.values())
         edge_sizes = [(x/paux)+1 for x in edges.values()]
         
-        return nx.draw(G, with_labels=True, node_size=10000, node_color=ncod, cmap=cmap, 
-                       edge_labels=edge_labels, width=edge_sizes, edge_color=ecod)
+        return nx.draw(G, with_labels=True, node_size=10000, node_color=ncod, cmap=cmap, width=edge_sizes, edge_color=ecod)
     else:
         
         # 2 ) get node pos

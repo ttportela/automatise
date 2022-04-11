@@ -296,6 +296,7 @@ def printRun(method, data, results, prog_path, prefix, mname, var, json, params,
 
 
         elif 'poi' in method: #method == 'npoi' or method == 'poi' or method == 'wnpoi':
+            print(params['sequences'])
             POIFREQ(data, results, prefix, dsvar, params['sequences'], params['features'], method, print_only=print_only, pyname=pyname, or_methodsuffix=dsvar if '_ts' not in data else 'specific', or_folder_alias=MNAME)
 
         elif 'SM' in method:

@@ -269,12 +269,10 @@ def MARC(data_folder, res_path, prefix, folder, train="train.csv", test="test.cs
         out = os.popen(CMD).read()
         time = (datetime.now()-time).total_seconds() * 1000
 
-        f=open(OUTPUT_FILE, "a+")
+        f=open(OUTPUT_FILE.replace('"', ''), "a+")
         f.write(out)
         f.write("Processing time: %d milliseconds\r\n" % (time))
         f.close()
-
-        print(captured.stdout)
         print("Done. " + str(time) + " milliseconds")
     print("# ---------------------------------------------------------------------------------")
     
@@ -302,7 +300,7 @@ def POIFREQ(data_folder, res_path, prefix, dataset, sequences, features, method=
     if or_folder_alias:
         folder = or_folder_alias
     else:
-        folder = method.upper()+'-'+result_name +'-'+ ds_var
+        folder = method.upper() +'-'+ result_name +'-'+ ds_var
     
 #     print("# ---------------------------------------------------------------------------------")
 #     print("# "+method.upper()+": " + res_path + ' - ' +folder)
@@ -344,10 +342,7 @@ def POIFREQ(data_folder, res_path, prefix, dataset, sequences, features, method=
             for s in sequences:
                 pois = ('_'.join(features))+'_'+str(s)
                 print(pyname+' automatize/pois/POIS-Classifier.py "'+method+'" "'+pois+'" "'+res_folder+'" "'+method.upper()+'-'+pois+'"')
-                
-            pois = ('_'.join(features))+'_'+('_'.join([str(n) for n in sequences]))
-            print(pyname+' automatize/pois/POIS-Classifier.py "'+method+'" "'+pois+'" "'+res_folder+'" "'+method.upper()+'-'+pois+'"')
-        
+            
         return result_file
     else:
 #         from ..main import importer
