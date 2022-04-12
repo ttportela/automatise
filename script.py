@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 '''
-Automatize: Multi-Aspect Trajectory Data Mining Tool Library
-The present application offers a tool, called AutoMATize, to support the user in the classification task of multiple aspect trajectories, specifically for extracting and visualizing the movelets, the parts of the trajectory that better discriminate a class. The AutoMATize integrates into a unique platform the fragmented approaches available for multiple aspects trajectories and in general for multidimensional sequence classification into a unique web-based and python library system. Offers both movelets visualization and a complete configuration of classification experimental settings.
+Multiple Aspect Trajectory Data Mining Tool Library
+
+The present application offers a tool, to support the user in the classification task of multiple aspect trajectories, specifically for extracting and visualizing the movelets, the parts of the trajectory that better discriminate a class. It integrates into a unique platform the fragmented approaches available for multiple aspects trajectories and in general for multidimensional sequence classification into a unique web-based and python library system. Offers both movelets visualization and a complete configuration of classification experimental settings.
 
 Created on Feb, 2021
-License GPL v.3 or superior
+Copyright (C) 2022, License GPL Version 3 or superior (see LICENSE file)
 
 @author: Tarlis Portela
 '''
-from .main import importer #, display
+from .main import importer, pyshel, PACKAGE_NAME #, display
 importer(['S'], globals())
 
 def gensh(method, datasets, params=None):
-#     from automatize.run import Movelets, MARC, k_MARC
+#     from run import Movelets, MARC, k_MARC
 #     import os, sys
     importer(['sys'], globals())
     
@@ -137,6 +138,9 @@ def configMethod(method, params):
         mname = 'SM'
         runopts = ''
         
+    elif 'TEC' in method or 'MARC' in method or oneof(method, ['Movelets', 'Dodge', 'Xiao', 'Zheng']):
+        mname = trimsuffix(method)
+        
     else:
         mname = trimsuffix(method).capitalize() # method.replace('+Log', '')
 #         runopts = '-version ' + trimsuffix(method) + ' '
@@ -229,9 +233,9 @@ def configMethod(method, params):
     
 def printRun(method, data, results, prog_path, prefix, mname, var, json, params, runopts, islog, print_only, check_done=True, doacc=True, pyname='python3'):
 #     import os, sys
-#     from automatize.run import Movelets, MARC, POIFREQ, Ensemble#k_MARC, k_Ensemble
+#     from run import Movelets, MARC, POIFREQ, Ensemble#k_MARC, k_Ensemble
     importer(['methods'], globals())
-    automatize_scripts = 'automatize/scripts'
+#     package_scripts = 'automatise/scripts'
         
     if 'k' in params and params['k']:
         k = params['k']
@@ -285,19 +289,59 @@ def printRun(method, data, results, prog_path, prefix, mname, var, json, params,
         runopts += '-inprefix "' + prefix + '" '
     
 #     if method == 'TEC' or method == 'TEC2':
-    if method:
+    if 'TEC' in method:
+        if 'ensemble_methods' in params:
+            ensemble_methods = params['ensemble_methods']
+        else:
+            ensemble_methods = [['MML'], ['npoi']]
+#         movelets_method = 'MML' if 'ensemble_methods' not in params else params['ensemble_methods'][0]
+#         pois_method = 'npoi' if 'ensemble_methods' not in params else params['ensemble_methods'][1]
+#         print('mkdir -p "${DIR}/'+mname+'-'+var+ '"')
+        print('mkdir -p "'+DIRF+'"')
+        print('')
+        
+        for movelets_method in ensemble_methods[0]:
+            for pois_method in ensemble_methods[1]:
+        
+                methods = ['movelets_nn', 'npoi', 'marc']
+                if method == 'TEC2':
+                    methods = ['movelets_nn', 'marc']
+
+                pois = ('_'.join(params['features']))+'_'+('_'.join([str(n) for n in params['sequences']]))
+                poif_line     = os.path.join('${FOLDER}', pois_method.upper()+'-'+pois+'-'+var, pois_method+'_'+pois)
+                # IF DIFFERENT METHOD, CHANGE modelfolder NAME!!
+                movelets_line = os.path.join('${FOLDER}', movelets_method+'-'+var) 
+
+                metsuff = movelets_method+ (pois_method if method != 'TEC2' else '')
+                
+                Ensemble(data, results, prefix, MNAME, methods=methods, \
+                     modelfolder='model_'+metsuff, save_results=True, print_only=print_only, pyname=pyname, \
+                     descriptor='', sequences=params['sequences'], features=params['features'], dataset=dsvar, num_runs=1,\
+                     movelets_line=movelets_line, poif_line=poif_line)
+    else:
         prefix = None
         
         if method == 'MARC':
             train_file = dsvar+"_train.csv" if '_ts' not in data else dsvar+"_TRAIN.ts"
             test_file  = dsvar+"_test.csv"  if '_ts' not in data else dsvar+"_TEST.ts"
-            MARC(data, results, prefix, MNAME, print_only=print_only, prg_path=os.path.join(prog_path, 'automatize','marc'), 
+            MARC(data, results, prefix, MNAME, print_only=print_only, prg_path=os.path.join(prog_path, PACKAGE_NAME,'marc'), 
                  pyname=pyname, extra_params=GIG+' '+THREADS, train=train_file, test=test_file)
 
 
         elif 'poi' in method: #method == 'npoi' or method == 'poi' or method == 'wnpoi':
-            print(params['sequences'])
             POIFREQ(data, results, prefix, dsvar, params['sequences'], params['features'], method, print_only=print_only, pyname=pyname, or_methodsuffix=dsvar if '_ts' not in data else 'specific', or_folder_alias=MNAME)
+
+
+    #     elif 'super' in method:                    
+    #         Movelets(data, results, prefix, mname+'-'+var, json+'_hp',\
+    #                    Ms=islog, extra=runopts, n_threads=THREADS, prg_path=prog_path, \
+    #                    print_only=print_only, jar_name='TTPMovelets', java_opts='-Xmx'+GIG+'G', pyname=pyname)
+
+    #     elif 'master' in method:                    
+    #         Movelets(data, results, prefix, mname+'-'+var, json+'_hp', \
+    #                    Ms=islog, extra=runopts, n_threads=THREADS, prg_path=prog_path, \
+    #                    print_only=print_only, jar_name='TTPMovelets', java_opts='-Xmx'+GIG+'G', pyname=pyname)
+
 
         elif 'SM' in method:
             timeout = params['timeout'] if 'timeout' in params.keys() else None
@@ -336,16 +380,19 @@ def printRun(method, data, results, prog_path, prefix, mname, var, json, params,
             print('# --------------------------------------------------------------------------------------')
             print('for FOLD in '+ ' '.join(['"run'+str(x)+'"' for x in range(1, params['samples']+1)]) )
             print('do')
-            print(pyname+' '+automatize_scripts+'/MergeDatasets.py "'+results+'/${FOLD}/'+MNAME+'"') #MERGE
+#             print(pyname+' '+package_scripts+'/MergeDatasets.py "'+results+'/${FOLD}/'+MNAME+'"') #MERGE
+            print(pyshel('MergeDatasets', prog_path, pyname)+' "'+results+'/${FOLD}/'+MNAME+'"') #MERGE
             if doacc :
-                print(pyname+' '+automatize_scripts+'/Classifier-MLP_RF.py "'+results+'/${FOLD}" "'+MNAME+'"') #MLP_RF
+#                 print(pyname+' '+package_scripts+'/Classifier-MLP_RF.py "'+results+'/${FOLD}" "'+MNAME+'"') #MLP_RF
+                print(pyshel('Classifier-MLP_RF', prog_path, pyname)+' "'+results+'/${FOLD}" "'+MNAME+'"') #MLP_RF
             print('done')
             print('# --------------------------------------------------------------------------------------')
             print()
 
         elif doacc and not(method == 'MARC' or 'poi' in method or 'TEC' in method):
             print('# --------------------------------------------------------------------------------------')
-            print(pyname+' '+automatize_scripts+'/Classifier-MLP_RF.py "'+results+'" "'+MNAME+'"') #MLP_RF
+#             print(pyname+' '+package_scripts+'/Classifier-MLP_RF.py "'+results+'" "'+MNAME+'"') #MLP_RF
+            print(pyshel('Classifier-MLP_RF', prog_path, pyname)+' "'+results+'" "'+MNAME+'"') #MLP_RF
             print()
         
 #     print('echo "${DIR}/'+mname+'-'+var+' => Done."')

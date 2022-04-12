@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 '''
-Automatize: Multi-Aspect Trajectory Data Mining Tool Library
-The present application offers a tool, called AutoMATize, to support the user in the classification task of multiple aspect trajectories, specifically for extracting and visualizing the movelets, the parts of the trajectory that better discriminate a class. The AutoMATize integrates into a unique platform the fragmented approaches available for multiple aspects trajectories and in general for multidimensional sequence classification into a unique web-based and python library system. Offers both movelets visualization and a complete configuration of classification experimental settings.
+Multiple Aspect Trajectory Data Mining Tool Library
+
+The present application offers a tool, to support the user in the classification task of multiple aspect trajectories, specifically for extracting and visualizing the movelets, the parts of the trajectory that better discriminate a class. It integrates into a unique platform the fragmented approaches available for multiple aspects trajectories and in general for multidimensional sequence classification into a unique web-based and python library system. Offers both movelets visualization and a complete configuration of classification experimental settings.
 
 Created on Dec, 2021
-License GPL v.3 or superior
+Copyright (C) 2022, License GPL Version 3 or superior (see LICENSE file)
 
 @author: Tarlis Portela
 '''
@@ -207,19 +208,17 @@ def parse_movelets(file, name='movelets', count=0):
     l = len(data[name])
     for x in range(0, l):
         points = data[name][x]['points_with_only_the_used_features']
-        if len(points[0]) > 0:
-            ls_movelets.append(
-                Movelet(\
-                    count, data[name][x]['trajectory'],\
-                    points,\
-                    float(data[name][x]['quality']['quality'] * 100.0),\
-                    data[name][x]['label'],\
-                    data[name][x]['start'],\
-                    int(data[name][x]['quality']['size']))\
-            )
+        ls_movelets.append(
+            Movelet(\
+                count, data[name][x]['trajectory'],\
+                points,\
+                float(data[name][x]['quality']['quality'] * 100.0),\
+                data[name][x]['label'],\
+                data[name][x]['start'],\
+                int(data[name][x]['quality']['size']))\
+        )
 
-            count += 1
-            
+        count += 1
     ls_movelets.sort(key=lambda x: x.quality, reverse=True)
     return ls_movelets
 

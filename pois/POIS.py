@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 '''
-Automatize: Multi-Aspect Trajectory Data Mining Tool Library
-The present application offers a tool, called AutoMATize, to support the user in the classification task of multiple aspect trajectories, specifically for extracting and visualizing the movelets, the parts of the trajectory that better discriminate a class. The AutoMATize integrates into a unique platform the fragmented approaches available for multiple aspects trajectories and in general for multidimensional sequence classification into a unique web-based and python library system. Offers both movelets visualization and a complete configuration of classification experimental settings.
+Multiple Aspect Trajectory Data Mining Tool Library
+
+The present application offers a tool, to support the user in the classification task of multiple aspect trajectories, specifically for extracting and visualizing the movelets, the parts of the trajectory that better discriminate a class. It integrates into a unique platform the fragmented approaches available for multiple aspects trajectories and in general for multidimensional sequence classification into a unique web-based and python library system. Offers both movelets visualization and a complete configuration of classification experimental settings.
 
 Created on Dec, 2021
-License GPL v.3 or superior
+Copyright (C) 2022, License GPL Version 3 or superior (see LICENSE file)
 
 @author: Tarlis Portela
 '''
@@ -13,7 +14,7 @@ script_dir = os.path.dirname( __file__ )
 main_dir = os.path.abspath(os.path.join( script_dir, '..' , '..'))
 sys.path.append( main_dir )
 
-from automatize.main import importer #, display
+from main import importer #, display
 importer(['S', 'datetime','poifreq'], globals())
 
 if len(sys.argv) < 6:
@@ -30,7 +31,6 @@ DATASET = sys.argv[4]
 path_name = sys.argv[5]
 RESULTS_DIR = sys.argv[6]
 
-# from automatize.ensemble_models.poifreq import poifreq
 time = datetime.now()
 poifreq(SEQUENCES, DATASET, FEATURES, path_name, RESULTS_DIR, method=METHOD, save_all=True, doclass=False)
 time_ext = (datetime.now()-time).total_seconds() * 1000
