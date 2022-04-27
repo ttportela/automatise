@@ -10,8 +10,8 @@ Copyright (C) 2022, License GPL Version 3 or superior (see LICENSE file)
 @author: Tarlis Portela
 '''
 PACKAGE_NAME = 'automatise'
-DATA_PATH = '../../datasets'
-EXP_PATH  = '../../results'
+DATA_PATH = './app/datasets'
+EXP_PATH  = '/app/results'
 README    = PACKAGE_NAME+'/README.md'
 
 PAGES_ROUTE =  PACKAGE_NAME+'/assets'

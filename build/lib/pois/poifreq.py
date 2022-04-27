@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 '''
-Automatize: Multi-Aspect Trajectory Data Mining Tool Library
-The present application offers a tool, called AutoMATize, to support the user in the classification task of multiple aspect trajectories, specifically for extracting and visualizing the movelets, the parts of the trajectory that better discriminate a class. The AutoMATize integrates into a unique platform the fragmented approaches available for multiple aspects trajectories and in general for multidimensional sequence classification into a unique web-based and python library system. Offers both movelets visualization and a complete configuration of classification experimental settings.
+Multiple Aspect Trajectory Data Mining Tool Library
+
+The present application offers a tool, to support the user in the classification task of multiple aspect trajectories, specifically for extracting and visualizing the movelets, the parts of the trajectory that better discriminate a class. It integrates into a unique platform the fragmented approaches available for multiple aspects trajectories and in general for multidimensional sequence classification into a unique web-based and python library system. Offers both movelets visualization and a complete configuration of classification experimental settings.
 
 Created on Dec, 2021
-License GPL v.3 or superior
+Copyright (C) 2022, License GPL Version 3 or superior (see LICENSE file)
 
 @author: Tarlis Portela
 @author: Francisco Vicenzi (adapted)
 '''
-from .main import importer #, display
+import sys, os 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from main import importer
 importer(['S'], globals())
 
 ## --------------------------------------------------------------------------------------------
@@ -169,7 +172,7 @@ def to_file(core_name, x_train, x_test, y_train, y_test):
 def geoHasTransform(df, geo_precision=8):
 #     from ..main import importer
     importer(['geohash'], globals()) #globals
-#     from automatize.ensemble_models.utils import geohash
+#     from ensemble_models.utils import geohash
     return [geohash(df['lat'].values[i], df['lon'].values[i], geo_precision) for i in range(0, len(df))]
     
 ## POI-F: POI Frequency
@@ -480,7 +483,7 @@ def poifreq(sequences, dataset, features, folder, result_dir, method='npoi', sav
     if doclass:
         time = datetime.now()
         
-#         from automatize.ensemble_models.poifreq import model_poifreq
+#         from ensemble_models.poifreq import model_poifreq
         importer(['TEC.POIS'], locals())
         model, x_test = model_poifreq(core_name)
         model = model.predict(x_test)

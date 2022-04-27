@@ -1,5 +1,0 @@
-assets
-io
-marc
-pois
-scripts

@@ -15,8 +15,8 @@ with open("README.md", "r") as fh:
     
 setuptools.setup(
     name="automatise",
-    version="1.0.beta1",
-    author="tarlis",
+    version="0.1.b21",
+    author="Tarlis Tortelli Portela",
     author_email="tarlis@tarlis.com.br",
     description="Automatise: Multiple Aspect Trajectory Data Mining Tool Library",
     long_description=long_description,
@@ -24,10 +24,10 @@ setuptools.setup(
     url="https://github.com/ttportela/automatise",
     packages=setuptools.find_packages(),
     scripts=[
-        'scripts/MAT-CheckRun.py',
         'scripts/MAT-Classifier-All.py',
         'scripts/MAT-Classifier-MLP.py',
         'scripts/MAT-Classifier-MLP_RF.py',
+        'scripts/MAT-CheckRun.py',
         'scripts/MAT-ExportResults.py',
         'scripts/MAT-MergeDatasets.py',
         'scripts/MAT-PrintResults.py',
@@ -46,4 +46,6 @@ setuptools.setup(
         "Topic :: Scientific/Engineering :: Information Analysis",
         "Topic :: Scientific/Engineering :: Visualization",
     ),
+    keywords='data mining, python, trajectory classification, trajectory analysis, movelets',
+    license='GPL Version 3 or superior (see LICENSE file)',
 )

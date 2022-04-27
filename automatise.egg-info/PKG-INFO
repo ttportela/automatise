@@ -1,3 +1,44 @@
+Metadata-Version: 2.1
+Name: automatise
+Version: 0.1b21
+Summary: Automatise: A Multiple Aspect Trajectory Data Mining Tool Library
+Home-page: https://github.com/ttportela/automatise
+Author: Tarlis Tortelli Portela
+Author-email: Tarlis Tortelli Portela <tarlis@tarlis.com.br>
+Maintainer-email: Tarlis Tortelli Portela <tarlis@tarlis.com.br>
+License: GPL Version 3 or superior (see LICENSE file)
+Project-URL: homepage, https://github.com/ttportela/automatise
+Project-URL: repository, https://github.com/ttportela/automatise
+Project-URL: documentation, https://github.com/ttportela/automatise
+Project-URL: download, https://pypi.org/project/automatise/#files
+Keywords: data-science,machine-learning,data-mining,trajectory,multiple-trajectory,trajectory-classification,movelet,movelet-visualization
+Platform: UNKNOWN
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Operating System :: OS Independent
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: <3.10,>=3.7
+Description-Content-Type: text/markdown
+Provides-Extra: all_extras
+Provides-Extra: dev
+Provides-Extra: binder
+Provides-Extra: docs
+Provides-Extra: dl
+License-File: LICENSE
+
 # Automatise: Multiple Aspect Trajectory Data Mining Tool Library
 ---
 
@@ -56,3 +97,5 @@ Feel free to contribute in any form, such as scientific publications referencing
 - [scikit-mobility](https://github.com/scikit-mobility/scikit-mobility): Human trajectory representation and visualizations in Python;
 - [geopandas](https://geopandas.org/en/stable/): Library to help work with geospatial data in Python;
 - [movingpandas](https://anitagraser.github.io/movingpandas/): Based on `geopandas` for movement data exploration and analysis.
+
+

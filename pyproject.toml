@@ -1,6 +1,6 @@
 [project]
 name = "automatise"
-version = "0.1.beta1"
+version = "0.1.b21"
 description = "Automatise: A Multiple Aspect Trajectory Data Mining Tool Library"
 authors = [
     {name = "Tarlis Tortelli Portela", email = "tarlis@tarlis.com.br"},
@@ -93,7 +93,7 @@ documentation = "https://github.com/ttportela/automatise"
 download = "https://pypi.org/project/automatise/#files"
 
 [project.license]
-file = "LICENSE"
+text = 'GPL Version 3 or superior (see LICENSE file)'
 
 [build-system]
 requires = ["setuptools", "wheel", "toml", "build"]

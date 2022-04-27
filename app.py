@@ -160,7 +160,7 @@ def render_page_home():
     y = datetime.datetime.now().date().year
 #     return render_markdown_file(README)
     return html.Div(id='content-home', children=[ 
-        render_markdown_file(README),
+        render_markdown_file(README, div=True),
         html.Hr(),
         html.Span('© '+str(y)+' Alfa version, by '),
         html.A(
@@ -168,7 +168,8 @@ def render_page_home():
             href="https://tarlis.com.br",
         ),
         html.Span('.'),
-    ], style={'margin': '20px'})
+#     ], style={'margin': '20px'})
+    ])
 
 if __name__ == '__main__':
 #     sess.init_app(app)
