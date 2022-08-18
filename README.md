@@ -29,6 +29,14 @@ Install directly from PyPi repository, or, download from github. Intalling with 
 
 To use Automatise as a python library, find examples in this sample Jupyter Notebbok: [Automatise_Sample_Code.ipynb](./assets/examples/Automatise_Sample_Code.ipynb)
 
+### Web Application
+
+Run as wep application by running the script:
+
+```bash
+    python3 automatise/app.py
+```
+
 ### Citing
 
 If you use `automatise` please cite the following paper:
